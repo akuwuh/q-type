@@ -1,0 +1,48 @@
+{
+  "version": "6.0",
+  "nxVersion": "19.5.1",
+  "deps": {},
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {},
+    "nonProjectFiles": [
+      {
+        "file": "app.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "app.component.html",
+        "hash": "7510528653959520865"
+      },
+      {
+        "file": "app.component.ts",
+        "hash": "5977976200421052761"
+      },
+      {
+        "file": "app.config.server.ts",
+        "hash": "14750464052796800194"
+      },
+      {
+        "file": "app.config.ts",
+        "hash": "176457697524996420"
+      },
+      {
+        "file": "app.routes.ts",
+        "hash": "12397496131277534773"
+      },
+      {
+        "file": "word/word.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "word/word.component.spec.ts",
+        "hash": "15197180969074152346"
+      },
+      {
+        "file": "word/word.component.ts",
+        "hash": "15654709660209056846"
+      }
+    ]
+  }
+}

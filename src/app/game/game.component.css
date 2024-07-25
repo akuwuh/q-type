@@ -1,0 +1,13 @@
+.char-default{ 
+    color: black;
+}
+.char-correct{ 
+    color: green;
+}
+.char-incorrect{ 
+    color: red;
+}
+
+.active {
+    background-color: grey;
+}

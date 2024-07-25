@@ -1,0 +1,11 @@
+<p>game works!</p>
+@for (word of this.words; track word.render) {
+    <div class="word" [class.active]="currentWord === word.globalIdx">
+        @for (char of word.render; track char.value) {
+            <span class="px-1" [class]="char?.state">{{char.value}}</span>
+        }
+    </div>
+    <span>{{' '}}</span>
+}
+
+<input type="text" (input)="onInput($event)" (keyup.space)="onSpace($event)">
