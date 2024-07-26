@@ -4,12 +4,13 @@ import { CharState } from '../utils/char';
 import { TimerComponent } from '../timer/timer.component';
 import { ResultComponent } from '../result/result.component';
 import { generateShuffled } from '../utils/wordList';
+import { CaretComponent } from '../caret/caret.component';
 
 const WORD_LIST = generateShuffled();
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [TimerComponent, ResultComponent],
+  imports: [TimerComponent, ResultComponent, CaretComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
@@ -44,20 +45,26 @@ export class GameComponent implements OnInit {
 
     @HostListener('document:keypress', ['$event']) keyEvent(e: any): void {
         if (!this.gameEnded) {
+
+            // start timer on first key press
             if (!this.started && this.timer) {
                 this.timer.startTimer();
                 this.started = true;
             }
-            console.log(e.key)
+            // alpha chars only
+            if (e.key != " " && e.key != "Enter")  
 
-            if (e.key != " " && e.key != "Enter")  {
+            {
                 this.charInputted++;
                 this.words[this.currentWord].addChar(e.key);
                 this.words[this.currentWord].update();
                 if (this.words[this.currentWord].render[this.words[this.currentWord].lastChar].state === CharState.CORRECT) {
                     this.charCorrect++;
                 }
-            } else {
+            } 
+            else 
+            // enter or space
+            { 
                 if (this.words[this.currentWord].lastChar != -1) {
                     this.totalCorrect += 2 + this.words[this.currentWord].lastChar; // account for space and 0-indexed
                     this.totalRaw += 2 + this.words[this.currentWord].lastChar;

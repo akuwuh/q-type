@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root { 
+    --text-color-default: #a3a3a3;
+    --text-color-correct: #000;
+    --text-color-incorrect: #FF4754;
+    --caret-color: #666666;
+    --caret-roundess: 1rem;
+}
+
 body, html { 
     height: 100%;
     width: 100%;
@@ -19,6 +27,11 @@ html {
 
 body {
     margin: 0
+}
+
+@font-face {
+    font-family: 'Prima-Sans-Roman'; 
+    src: url('./app/assets/PrimaSansMonoBT-Roman.otf'); /*URL to font*/
 }
 
 

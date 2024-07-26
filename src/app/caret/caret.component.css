@@ -1,0 +1,29 @@
+#caret {
+    height: 1.2em;
+    display: block;
+    background: var(--caret-color);
+    animation: caretFlashSmooth 1s infinite;
+    position: absolute;
+    border-radius: var(--caret-roundness);
+    transition: 0.05s;
+    transform-origin: top left;
+}
+  
+@keyframes caretFlashSmooth {
+    0%,
+    100% {
+      opacity: 0;
+    }
+  
+    50% {
+      opacity: 1;
+    }
+}
+
+#caret.default {
+    width: 0.1em;
+}
+
+#caret>.off {
+    width: 0em;
+}

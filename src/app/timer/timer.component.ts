@@ -6,7 +6,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
   imports: [],
   template: `
     <p>
-      Time Left: {{timeLeft}}
+      {{timeLeft}}
     </p>
   `,
   styleUrl: './timer.component.css'
@@ -27,7 +27,6 @@ export class TimerComponent {
 		  }
 		}, 1000);
 	  }
-	
 	clearTimer() {
 		clearInterval(this.intervalId);
 	}

@@ -1,44 +1,50 @@
 <div class="page pageTest full-width content-grid">
     <span>
-        <app-timer #timer [timeLeft]="duration" (timerFinished)="onTimerFinished()"/>
+        
     </span>
 
-    <div id="typingTest" class="content-grid content" style="font-size: 1.5rem; max-width: 100%; opacity: 1;">
-        <div id="testModesNotice">
-            <div class="textButton">
-                Started: {{started}}
-            </div>
+    
+    @if (gameEnded) {
+        <div>
+            <h2>Result:</h2>
+            <app-result 
+                [correctWords]="totalCorrect"
+                [rawWords]="totalRaw"
+                [time]="duration"
+                [correctChars]="charCorrect"
+                [totalChars]="charInputted"
+            ></app-result>
         </div>
+    } @else {
+        <div id="typingTest" class="content-grid content" style="max-width: 100%; opacity: 1;">
 
-        @if (gameEnded) {
-            <div>
-                <h2>Result:</h2>
-                <app-result 
-                    [correctWords]="totalCorrect"
-                    [rawWords]="totalRaw"
-                    [time]="duration"
-                    [correctChars]="charCorrect"
-                    [totalChars]="charInputted"
-                ></app-result>
+            <div id="testModesNotice">
+                <div class="text-xl p-2 my-2 font-semibold">
+                    <app-timer #timer [timeLeft]="duration" (timerFinished)="onTimerFinished()"/>
+                </div>
             </div>
-        } @else {
+
             <div id="wordsWrapper" class="content-grid full-width" style="height: 117px; overflow: hidden;">
+                <app-caret></app-caret>
                 <div class="words container mx-auto flex flex-wrap h-fit content-start" style="margin-left: unset; height: 156px; overflow: hidden; transition: all 0.25s ease 0s;">
                     @for (word of this.words; track word.render) {
-                        <div class="word relative text-base m-1" [class.active]="currentWord === word.globalIdx" >
+                        <div class="word relative text-2xl my-1 mx-1.5" [class.active]="currentWord === word.globalIdx" >
                             @for (char of word.render; track char.value) {
-                                <span class="char text-lg m-0 p-0 inline-block"[class]="char?.state">{{char.value}}</span>
+                                <span class="char m-0 p-0 inline-block"[class]="char?.state">{{char.value}}</span>
                             }
                         </div>
                     }
                 </div>
             </div>
-        }
 
-        <div id="restartTestButton">
-            Restart
+            <div id="restartTestButton" class="">
+                Restart
+            </div>
+            
         </div>
-    </div>
+    }
+
+    
 </div>
 
 
