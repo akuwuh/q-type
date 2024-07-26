@@ -1,45 +1,89 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild} from '@angular/core';
 import { Word } from '../utils/word';
+import { CharState } from '../utils/char';
+import { TimerComponent } from '../timer/timer.component';
+import { ResultComponent } from '../result/result.component';
+import { generateShuffled } from '../utils/wordList';
 
+const WORD_LIST = generateShuffled();
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [],
+  imports: [TimerComponent, ResultComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
+
 export class GameComponent implements OnInit {
-    @Input() duration: number;
+
+    duration: number = 120;
     words: Word[] = [];
-    currentWord = 0;
+    currentWord: number = 0;
+    totalCorrect: number = 0; // correct worsds
+    totalRaw: number = 0;
+    limbo: boolean = false;
+    started: boolean = false;
+    showResult: boolean = false;
+    gameEnded: boolean = false; 
+
+    charInputted: number = 0;
+    charCorrect: number = 0;
+
+    @ViewChild('timer') timer!: TimerComponent; 
+
 
     ngOnInit(): void {
         this.generateWords();
     }
 
     generateWords(): void {
-        for (let i = 0; i < 2; i++) {
-            this.words.push(new Word("hello", 0, 0, i));
+        for (let i = 0; i < 100; i++) {
+            this.words.push(new Word(WORD_LIST[i], 0, 0, i));
         }
     }
 
-    onInput(e: any): void {
-        if (!e.Space) {
-            const value = e?.target?.value?.trim();
-            if (value.length > this.words[this.currentWord].len + 5) {
-                return;
+    @HostListener('document:keypress', ['$event']) keyEvent(e: any): void {
+        if (!this.gameEnded) {
+            if (!this.started && this.timer) {
+                this.timer.startTimer();
+                this.started = true;
             }
-            this.words[this.currentWord].input = value;
-            this.words[this.currentWord].update(); 
-        }
-      }
+            console.log(e.key)
 
-    onSpace(e: any): void {
-        // on space confirm word or if word is empty do nothin 
-        if (this.words[this.currentWord].input === "") {
-            return;
+            if (e.key != " " && e.key != "Enter")  {
+                this.charInputted++;
+                this.words[this.currentWord].addChar(e.key);
+                this.words[this.currentWord].update();
+                if (this.words[this.currentWord].render[this.words[this.currentWord].lastChar].state === CharState.CORRECT) {
+                    this.charCorrect++;
+                }
+            } else {
+                if (this.words[this.currentWord].lastChar != -1) {
+                    this.totalCorrect += 2 + this.words[this.currentWord].lastChar; // account for space and 0-indexed
+                    this.totalRaw += 2 + this.words[this.currentWord].lastChar;
+                    this.currentWord++;
+                }
+                
+            }
         }
-        this.currentWord++;
+    }
+
+    @HostListener('document:keydown', ['$event']) backspaceEvent(e: any): void {
+        if (!this.gameEnded) {
+            if (e.keyCode === 8) { // is backspace
+                if (this.words[this.currentWord].lastChar === -1 && this.currentWord > 0 && this.words[this.currentWord - 1].isCorrect === false) {
+                    this.currentWord--;
+                } else {
+                    this.words[this.currentWord].removeChar();
+                }
+            }
+            this.words[this.currentWord].update();
+        }
+    }
+
+    onTimerFinished() {
+        this.started = false;
+        this.gameEnded = true;
     }
 
 }

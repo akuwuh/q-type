@@ -3,3 +3,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body, html { 
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%
+}
+
+body {
+    margin: 0
+}
+
+
+.content-grid {
+    --padding-inline: 2rem;
+    --content-max-width: 1536px;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: [full-width-start] minmax(0,var(--padding-inline)) [full-width-padding-start] minmax(0,1fr) [content-start] min(100% - var(--padding-inline) * 2,var(--content-max-width)) [content-end] minmax(0,1fr) [full-width-padding-end] minmax(0,var(--padding-inline)) [full-width-end]
+}
+
+.content-grid>:not(.breakout,.full-width,.full-width-padding) {
+    grid-column: content
+}
+
+.content-grid>.full-width {
+    grid-column: full-width
+}
+
+.content-grid>.full-width-padding {
+    grid-column: full-width-padding
+}

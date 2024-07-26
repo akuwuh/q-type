@@ -1,12 +1,12 @@
 import { Char, CharState } from './char';
 
 export class Word {
-    value: string;
+    private value: string;
     input: string = "";
-    isActive: boolean = false;
     isCorrect: boolean = false;
     render: Char[] = []; 
-    len: number;  
+    private len: number; 
+    lastChar: number = -1; // empty string
 
     globalIdx: number; // index of word in the whole text
     lineIdx: number; // index of line it belongs to
@@ -24,13 +24,29 @@ export class Word {
         }
     }
 
-    // assume valid input + is not a space
+    addChar(char: string): void {
+        if (this.lastChar < this.len + 7) { // length check
+            this.input += char;
+            this.lastChar++;
+        }
+    }
+
+    removeChar(): void {
+        if (this.lastChar > -1) {
+            this.input = this.input.slice(0, this.lastChar);
+            this.lastChar--;
+        }
+    }
+
     update(): void {
         const inputLen = this.input.length;
         const renderLen = this.render.length;
-
-        console.log(inputLen)
-        console.log(renderLen)
+        
+        if (this.input === this.value) {
+            this.isCorrect = true;
+        } else {
+            this.isCorrect = false;
+        }
 
         if (renderLen > inputLen  && renderLen > this.len) {
             if (inputLen > this.len) {
@@ -56,12 +72,6 @@ export class Word {
             } else {
                 this.render[i].state = CharState.INCORRECT;
             }
-        }
-
-        if (this.input === this.value) {
-            this.isCorrect = true;
-        } else {
-            this.isCorrect = false;
         }
 
     }

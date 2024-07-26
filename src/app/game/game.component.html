@@ -1,11 +1,45 @@
-<p>game works!</p>
-@for (word of this.words; track word.render) {
-    <div class="word" [class.active]="currentWord === word.globalIdx">
-        @for (char of word.render; track char.value) {
-            <span class="px-1" [class]="char?.state">{{char.value}}</span>
-        }
-    </div>
-    <span>{{' '}}</span>
-}
+<div class="page pageTest full-width content-grid">
+    <span>
+        <app-timer #timer [timeLeft]="duration" (timerFinished)="onTimerFinished()"/>
+    </span>
 
-<input type="text" (input)="onInput($event)" (keyup.space)="onSpace($event)">
+    <div id="typingTest" class="content-grid content" style="font-size: 1.5rem; max-width: 100%; opacity: 1;">
+        <div id="testModesNotice">
+            <div class="textButton">
+                Started: {{started}}
+            </div>
+        </div>
+
+        @if (gameEnded) {
+            <div>
+                <h2>Result:</h2>
+                <app-result 
+                    [correctWords]="totalCorrect"
+                    [rawWords]="totalRaw"
+                    [time]="duration"
+                    [correctChars]="charCorrect"
+                    [totalChars]="charInputted"
+                ></app-result>
+            </div>
+        } @else {
+            <div id="wordsWrapper" class="content-grid full-width" style="height: 117px; overflow: hidden;">
+                <div class="words container mx-auto flex flex-wrap h-fit content-start" style="margin-left: unset; height: 156px; overflow: hidden; transition: all 0.25s ease 0s;">
+                    @for (word of this.words; track word.render) {
+                        <div class="word relative text-base m-1" [class.active]="currentWord === word.globalIdx" >
+                            @for (char of word.render; track char.value) {
+                                <span class="char text-lg m-0 p-0 inline-block"[class]="char?.state">{{char.value}}</span>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div id="restartTestButton">
+            Restart
+        </div>
+    </div>
+</div>
+
+
+
