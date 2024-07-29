@@ -1,4 +1,4 @@
-import { Char, CharState } from './char';
+import { Char, CharState} from './char';
 
 export class Word {
     private value: string;
@@ -7,6 +7,7 @@ export class Word {
     render: Char[] = []; 
     private len: number; 
     lastChar: number = -1; // empty string
+    isActive: boolean = false; 
 
     globalIdx: number; // index of word in the whole text
     lineIdx: number; // index of line it belongs to

@@ -34,23 +34,80 @@ body {
     src: url('./app/assets/PrimaSansMonoBT-Roman.otf'); /*URL to font*/
 }
 
-
 .content-grid {
     --padding-inline: 2rem;
     --content-max-width: 1536px;
+  
+    /* --breakout-max-width: 1200px; */
+  
+    /* --breakout-size: calc(
+        (var(--breakout-max-width) - var(--content-max-width)) / 2
+    ); */
+  
     justify-content: center;
     display: grid;
-    grid-template-columns: [full-width-start] minmax(0,var(--padding-inline)) [full-width-padding-start] minmax(0,1fr) [content-start] min(100% - var(--padding-inline) * 2,var(--content-max-width)) [content-end] minmax(0,1fr) [full-width-padding-end] minmax(0,var(--padding-inline)) [full-width-end]
+    grid-template-columns:
+      [full-width-start] minmax(0, var(--padding-inline))
+      [full-width-padding-start] minmax(0, 1fr)
+      /* [breakout-start] minmax(0, var(--breakout-size)) */
+      [content-start] min(
+        100% - (var(--padding-inline) * 2),
+        var(--content-max-width)
+      )
+      [content-end]
+      /* minmax(0, var(--breakout-size)) [breakout-end] */
+      minmax(0, 1fr) [full-width-padding-end]
+      minmax(0, var(--padding-inline)) [full-width-end];
 }
 
-.content-grid>:not(.breakout,.full-width,.full-width-padding) {
-    grid-column: content
+.content-grid > :not( .full-width, .full-width-padding) {
+    grid-column: content;
+}
+  
+
+.content-grid > .full-width {
+    grid-column: full-width;
 }
 
-.content-grid>.full-width {
-    grid-column: full-width
+.content-grid > .full-width-padding {
+    grid-column: full-width-padding;
 }
 
-.content-grid>.full-width-padding {
-    grid-column: full-width-padding
+/* MEDIA QUERIES */
+
+/* blue */
+@media only screen and (max-width: calc(768px + 5rem)) {
+    .content-grid {
+        --content-max-width: 640px;
+    }
+
+}
+
+/* green */
+@media only screen and (max-width: calc(1024px + 5rem)) {
+    .content-grid {
+        --content-max-width: 768px;
+    }
+}
+
+/* orange */
+@media only screen and (max-width: calc(1536px + 5rem)) {
+    .content-grid {
+        --content-max-width: 1280px;
+    }
+}
+
+/* purple */
+@media only screen and (max-width: calc(640px + 5rem)) {
+    .content-grid {
+        --content-max-width: 100%;
+        --padding-inline: 1rem;
+    }
+}
+
+/* yellow */
+@media only screen and (max-width: calc(1280px + 5rem)) {
+    .content-grid {
+        --content-max-width: 1024px;
+      }
 }

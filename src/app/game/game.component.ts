@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild} from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ViewChildren, QueryList, ElementRef} from '@angular/core';
 import { Word } from '../utils/word';
 import { CharState } from '../utils/char';
 import { TimerComponent } from '../timer/timer.component';
@@ -29,18 +29,21 @@ export class GameComponent implements OnInit {
 
     charInputted: number = 0;
     charCorrect: number = 0;
+    // wordsDOM: HTMLCollectionOf<Element> | undefined;
 
     @ViewChild('timer') timer!: TimerComponent; 
-
+    // @ViewChild('words') el:ElementRef;
 
     ngOnInit(): void {
         this.generateWords();
+        // this.wordsDOM = document.getElementById('words')!.children;
     }
 
     generateWords(): void {
         for (let i = 0; i < 100; i++) {
             this.words.push(new Word(WORD_LIST[i], 0, 0, i));
         }
+        this.words[this.currentWord].isActive = true;
     }
 
     @HostListener('document:keypress', ['$event']) keyEvent(e: any): void {
@@ -68,10 +71,15 @@ export class GameComponent implements OnInit {
                 if (this.words[this.currentWord].lastChar != -1) {
                     this.totalCorrect += 2 + this.words[this.currentWord].lastChar; // account for space and 0-indexed
                     this.totalRaw += 2 + this.words[this.currentWord].lastChar;
+
+                    this.words[this.currentWord].isActive = false;
                     this.currentWord++;
+                    this.words[this.currentWord].isActive = true;
                 }
                 
             }
+
+            // this.getCurrentWord();
         }
     }
 
@@ -79,7 +87,12 @@ export class GameComponent implements OnInit {
         if (!this.gameEnded) {
             if (e.keyCode === 8) { // is backspace
                 if (this.words[this.currentWord].lastChar === -1 && this.currentWord > 0 && this.words[this.currentWord - 1].isCorrect === false) {
+                    
+                    this.words[this.currentWord].isActive = false;
                     this.currentWord--;
+                    this.words[this.currentWord].isActive = true;
+                    // this.getCurrentWord();
+
                 } else {
                     this.words[this.currentWord].removeChar();
                 }
@@ -92,5 +105,9 @@ export class GameComponent implements OnInit {
         this.started = false;
         this.gameEnded = true;
     }
+
+    // getCurrentWord(): void {
+    //     console.log(this.wordsDOM!.item(this.currentWord));
+    // }
 
 }

@@ -12,8 +12,16 @@
     color: var(--text-color-incorrect)
 }
 
-.active {
-    /*  */
+#words {
+    height: fit-content;
+    height: -moz-fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-content: flex-start;
+    -webkit-user-select: none;
+    user-select: none;
+    padding-bottom: 1em;
 }
 
 #typingTest {

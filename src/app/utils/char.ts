@@ -7,6 +7,7 @@ export enum CharState {
 export class Char {
     value: string;
     state: CharState;
+    
     constructor (value: string, state: CharState) {
         this.value = value;
         this.state = state;
