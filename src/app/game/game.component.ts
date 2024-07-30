@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ViewChildren, QueryList, ElementRef} from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ViewChildren, QueryList, ElementRef, afterRender, afterNextRender} from '@angular/core';
 import { Word } from '../utils/word';
 import { CharState } from '../utils/char';
 import { TimerComponent } from '../timer/timer.component';
@@ -29,15 +29,42 @@ export class GameComponent implements OnInit {
 
     charInputted: number = 0;
     charCorrect: number = 0;
-    // wordsDOM: HTMLCollectionOf<Element> | undefined;
 
+    currentWordDOM: Element | null = null;
+    currentCharDOM: Element | null | undefined = null;
+
+    charTop: number = 0;
+    charLeft: number = 0;
+
+    wordDivHeight: number = 0;
+    line1Offset: number = 0; 
+    line2Offset: number = 0;
+
+    wordsWrapperWidth: number = 0; 
+    charSpanWidth: number = 0;
+    
     @ViewChild('timer') timer!: TimerComponent; 
-    // @ViewChild('words') el:ElementRef;
+    @ViewChild('wordsRef', {static: false}) wordsRef!: ElementRef;
+    @ViewChild('caret') caret!: CaretComponent; 
+    
 
     ngOnInit(): void {
         this.generateWords();
-        // this.wordsDOM = document.getElementById('words')!.children;
+        this.viewUpdate();
+    
     }
+    
+
+    constructor () {
+        afterRender(() => {
+            if (this.gameEnded === false) {
+                this.viewUpdate();
+                this.updateCaret();
+            }
+        });
+
+    }
+    
 
     generateWords(): void {
         for (let i = 0; i < 100; i++) {
@@ -78,8 +105,7 @@ export class GameComponent implements OnInit {
                 }
                 
             }
-
-            // this.getCurrentWord();
+            
         }
     }
 
@@ -91,23 +117,67 @@ export class GameComponent implements OnInit {
                     this.words[this.currentWord].isActive = false;
                     this.currentWord--;
                     this.words[this.currentWord].isActive = true;
-                    // this.getCurrentWord();
 
                 } else {
                     this.words[this.currentWord].removeChar();
                 }
+                
             }
             this.words[this.currentWord].update();
+    
         }
     }
+
+    @HostListener('window:resize', ['$event'])
+        onResize(e: any): void{
+            this.viewUpdate();
+        }
 
     onTimerFinished() {
         this.started = false;
         this.gameEnded = true;
     }
 
-    // getCurrentWord(): void {
-    //     console.log(this.wordsDOM!.item(this.currentWord));
+   
+
+    updateCaret(): void {
+        this.caret.updatePosition(this.charLeft, this.charTop);
+    }
+
+    viewUpdate(): void {
+        this.currentWordDOM = this.wordsRef?.nativeElement.children.item(this.currentWord);
+
+        if (this.currentWordDOM && this.words[this.currentWord].lastChar > -1) {
+            this.currentCharDOM = this.currentWordDOM?.children.item(this.words[this.currentWord].lastChar);
+        } else {
+            this.currentCharDOM = this.currentWordDOM?.children.item(0);
+        }
+
+        const charPOS = this.currentCharDOM as HTMLElement;
+        const wordPOS = this.currentWordDOM as HTMLElement;
+
+        this.charTop = wordPOS?.offsetTop!;
+        this.charLeft = charPOS?.offsetLeft! + wordPOS?.offsetLeft!;
+
+        if (this.words[this.currentWord].lastChar > -1) {
+            this.charLeft += charPOS?.offsetWidth!;
+        }  
+
+        this.wordsWrapperWidth = this.wordsRef?.nativeElement.offsetWidth!;
+        this.charSpanWidth = charPOS?.offsetWidth!;
+
+        console.log(this.wordsWrapperWidth);
+        console.log(this.charLeft);
+
+        this.wordDivHeight = this.wordsRef?.nativeElement.children[0].offsetHeight!;
+        this.line1Offset = this.wordsRef?.nativeElement.children[0].offsetTop!;
+        this.line2Offset = this.line1Offset*3 + this.wordDivHeight; 
+        
+    }
+
+
+    // checkRenderLimit(): void { 
+    //     if (this.charLeft + this.)
     // }
 
 }

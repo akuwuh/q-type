@@ -1,27 +1,24 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-caret',
   standalone: true,
   imports: [],
   template: `
-    <div id="caret" class="text-2xl top-1.5 full-width default"></div>
+    <div #caret id="caret" class="text-2xl full-width default" [class.pace]="isActive"></div>
   `,
   styleUrl: './caret.component.css'
 })
 export class CaretComponent {
 
-	@Input() currentWord: number = 0;
-	@Input() currentChar: number = 0;
+	
 
-	startAnimation(): void {
+	@Input() isActive: boolean = true;
 
-	}
-	updatePosition(): void {
-		
-	}
-
-	stopAnimation(): void {
-
+	@ViewChild('caret') caret!: ElementRef;
+	
+	updatePosition(left: number, top: number): void {
+		this.caret.nativeElement.style.left = `${left}px`;
+		this.caret.nativeElement.style.top = `${top}px`;
 	}
 }

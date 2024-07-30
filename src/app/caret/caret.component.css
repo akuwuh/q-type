@@ -2,11 +2,14 @@
     height: 1.2em;
     display: block;
     background: var(--caret-color);
-    animation: caretFlashSmooth 1s infinite;
+    transition: all 0.15s ease;
     position: absolute;
     border-radius: var(--caret-roundness);
-    transition: 0.05s;
     transform-origin: top left;
+}
+
+.pace  {
+  animation: caretFlashSmooth 1s infinite;
 }
   
 @keyframes caretFlashSmooth {

@@ -9,7 +9,7 @@
     --text-color-correct: #000;
     --text-color-incorrect: #FF4754;
     --caret-color: #666666;
-    --caret-roundess: 1rem;
+    --caret-roundness: 1rem;
 }
 
 body, html { 
