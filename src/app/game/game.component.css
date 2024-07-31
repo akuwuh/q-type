@@ -54,9 +54,18 @@
     font-size: 1rem;
     margin: 1rem auto 0;
     display: flex;
-    padding: 1em 2em
+    padding: 1em 2em;
+    opacity: 0.55;
+    transition: all 0.125s ease;
+}
+#restartTestButton:hover {
+    opacity: 1;
 }
 
 .pageTest #wordsWrapper {
     position: relative;
+}
+
+#results{
+    font-family: "Outfit", sans-serif;
 }

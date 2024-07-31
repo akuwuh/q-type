@@ -1,0 +1,8 @@
+h1, h3{
+    font-family: "Outfit", sans-serif;
+}
+
+.borderLol {
+    border-left: 1px solid var(--text-color-default);
+    border-right: 1px solid var(--text-color-default);
+}

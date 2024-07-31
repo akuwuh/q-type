@@ -1,0 +1,18 @@
+.test-duration-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.duration-text {
+
+    margin-right: 1rem;
+    color: var(--Gray900);
+    font-size: 1.1rem;
+}
+
+label {
+  color: var(--Gray800);
+  font-weight: 500;
+}
+

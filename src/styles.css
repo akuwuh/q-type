@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poiret+One&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,6 +34,8 @@ body {
     font-family: 'Prima-Sans-Roman'; 
     src: url('./app/assets/PrimaSansMonoBT-Roman.otf'); /*URL to font*/
 }
+
+
 
 .content-grid {
     --padding-inline: 2rem;
@@ -77,7 +80,7 @@ body {
 
 /* blue */
 @media only screen and (max-width: calc(768px + 5rem)) {
-    .content-grid {
+    .content-grid, .container-div {
         --content-max-width: 640px;
     }
 
@@ -85,21 +88,21 @@ body {
 
 /* green */
 @media only screen and (max-width: calc(1024px + 5rem)) {
-    .content-grid {
+    .content-grid, .container-div  {
         --content-max-width: 768px;
     }
 }
 
 /* orange */
 @media only screen and (max-width: calc(1536px + 5rem)) {
-    .content-grid {
+    .content-grid, .container-div  {
         --content-max-width: 1280px;
     }
 }
 
 /* purple */
 @media only screen and (max-width: calc(640px + 5rem)) {
-    .content-grid {
+    .content-grid, .container-div  {
         --content-max-width: 100%;
         --padding-inline: 1rem;
     }
@@ -107,7 +110,7 @@ body {
 
 /* yellow */
 @media only screen and (max-width: calc(1280px + 5rem)) {
-    .content-grid {
+    .content-grid, .container-div  {
         --content-max-width: 1024px;
       }
 }

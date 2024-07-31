@@ -8,6 +8,7 @@ export class Word {
     private len: number; 
     lastChar: number = -1; // empty string
     isActive: boolean = false; 
+    equalToLength: boolean = false; // lastChar === len - 1
 
     globalIdx: number; // index of word in the whole text
     lineIdx: number; // index of line it belongs to
@@ -56,6 +57,7 @@ export class Word {
                 this.render.splice(this.len, renderLen - this.len);
             }
         }
+
         for (let i = 0; i < Math.max(inputLen, this.len); i++) {
             if (inputLen < this.len && i > inputLen - 1) {
                 this.render[i].state = CharState.DEFAULT;
@@ -74,6 +76,8 @@ export class Word {
                 this.render[i].state = CharState.INCORRECT;
             }
         }
+
+        this.equalToLength = this.lastChar >= this.len - 1;
 
     }
 
