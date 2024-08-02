@@ -23,7 +23,8 @@
       "ES2022",
       "dom",
       "dom.iterable"
-    ]
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

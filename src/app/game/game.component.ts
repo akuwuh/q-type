@@ -7,13 +7,19 @@ import { ResultComponent } from '../result/result.component';
 import { generateShuffled } from '../utils/wordList';
 import { CaretComponent } from '../caret/caret.component';
 import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 
+// NGRX stuff
+import { Store } from '@ngrx/store';
+import { startGame, endGame, resetGame } from '../ngrx/game/game.actions';
+import { selectGameEnded, selectGameStarted, selectGameStatus } from '../ngrx/game/game.selectors';
+import { AppState } from '../ngrx/app.state';
 
 const WORD_LIST = generateShuffled();
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [TimerComponent, ResultComponent, CaretComponent],
+  imports: [TimerComponent, ResultComponent, CaretComponent, CommonModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css',
   animations: [
@@ -35,8 +41,7 @@ export class GameComponent implements OnInit {
     totalRaw: number = 0;
     limbo: boolean = false;
     started: boolean = false;
-    showResult: boolean = false;
-    gameEnded: boolean = false; 
+    gameEnded: boolean =  false;
     allowBackspace: boolean = true;
 
     charInputted: number = 0;
@@ -73,19 +78,39 @@ export class GameComponent implements OnInit {
     @ViewChild('wordsWrapper') wordsWrapper!: ElementRef; 
     
 
+    gameState$ = this.store.select(selectGameStatus);
+    gameStartedObs$ = this.store.select(selectGameStarted);
+    gameEndedObs$ = this.store.select(selectGameEnded);
+
     ngOnInit(): void {
+        this.gameState$.subscribe({
+            next: (status) => {
+                if (status === 'ended') {
+                    this.gameEnded = true;
+                    this.started = false;
+                } else if (status === 'started') {
+                    this.started = true;
+                    this.gameEnded = false;
+                } else {
+                    this.started = false;
+                    this.gameEnded = false;
+                }
+            }
+
+        });
+        this.store.dispatch(resetGame()); // we'll see
         this.generateWords();
         this.viewUpdate();
     }
     
 
-    constructor () {
+    constructor (private store: Store<AppState>) {
         afterNextRender(() => {
             this.updateValues();
         });
 
         afterRender(() => {
-            if (this.gameEnded === false) {
+            if (!this.gameEnded) {
                 this.viewUpdate();
                 this.updateCaret();
                 if (this.currentLine === 3) {
@@ -93,6 +118,7 @@ export class GameComponent implements OnInit {
                 }
             }
         });
+ 
 
     }
     
@@ -109,7 +135,7 @@ export class GameComponent implements OnInit {
             // start timer on first key press
             if (!this.started && this.timer) {
                 this.timer.startTimer();
-                this.started = true;
+                this.store.dispatch(startGame());
             }
             // alpha chars only
             if (e.key != " " && e.key != "Enter")
@@ -162,8 +188,7 @@ export class GameComponent implements OnInit {
         }
 
     onTimerFinished() {
-        this.started = false;
-        this.gameEnded = true;
+        this.store.dispatch(endGame());
     }
 
    
