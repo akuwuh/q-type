@@ -1,10 +1,10 @@
 <div class="test-duration-wrapper">
-    <form >
+    <form (change)="onChange()" [formGroup]="durationForm">
         @for (option of this.durationOptions; track $index) {
             <div class="form-check form-check-inline">
-                <label class="form-check-label" for="{{option.id}}">{{option.label}}</label>
-                <input class="" type="radio" name="{{option.name}}" id="{{option.id}}"
-                    value="{{option.value}}" checked="{{option.checked}}" >
+                <label class="form-check-label" for="{{option.value}}">{{option.label}}</label>
+                <input class="" type="radio" name="duration" id="{{option.value}}"
+                    value="{{option.value}}" formControlName="duration"  (change)="onChange()">
             </div>
         }
     </form>

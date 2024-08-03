@@ -26,3 +26,17 @@ export const selectGameEnded = createSelector(
         
     }
 )
+
+export const selectDurationChange = createSelector(
+    selectGame,
+    (state: GameState) => {
+        return state.duration;
+    }
+)
+
+export const selectRestart = createSelector(
+    selectGame,
+    (state: GameState) => {
+        return state.restart;
+    }
+)

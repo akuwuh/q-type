@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
 
 // NGRX stuff
 import { Store } from '@ngrx/store';
-import { startGame, endGame, resetGame } from '../ngrx/game/game.actions';
-import { selectGameEnded, selectGameStarted, selectGameStatus } from '../ngrx/game/game.selectors';
+import { startGame, endGame, resetGame, triggerRestart } from '../ngrx/game/game.actions';
+import { selectGameEnded, selectGameStarted, selectGameStatus, selectDurationChange} from '../ngrx/game/game.selectors';
 import { AppState } from '../ngrx/app.state';
 
 const WORD_LIST = generateShuffled();
@@ -34,7 +34,7 @@ const WORD_LIST = generateShuffled();
 
 export class GameComponent implements OnInit {
 
-    duration: number = 5;
+    duration: number = 15;
     words: Word[] = [];
     currentWord: number = 0;
     totalCorrect: number = 0; // correct worsds
@@ -77,12 +77,13 @@ export class GameComponent implements OnInit {
     @ViewChild('caret') caret!: CaretComponent; 
     @ViewChild('wordsWrapper') wordsWrapper!: ElementRef; 
     
-
+    gameStateDuration$ = this.store.select(selectDurationChange);
     gameState$ = this.store.select(selectGameStatus);
     gameStartedObs$ = this.store.select(selectGameStarted);
     gameEndedObs$ = this.store.select(selectGameEnded);
 
     ngOnInit(): void {
+        this.store.dispatch(resetGame()); // we'll see
         this.gameState$.subscribe({
             next: (status) => {
                 if (status === 'ended') {
@@ -98,7 +99,12 @@ export class GameComponent implements OnInit {
             }
 
         });
-        this.store.dispatch(resetGame()); // we'll see
+
+        this.gameStateDuration$.subscribe({
+            next: (status) => {
+                this.duration = status;
+            }
+        });
         this.generateWords();
         this.viewUpdate();
     }
@@ -287,5 +293,13 @@ export class GameComponent implements OnInit {
 
         this.viewUpdate();
         this.updateCaret();
+    }
+
+    restartGame(): void {
+        this.store.dispatch(triggerRestart());
+    }
+
+    onDestroy(): void {
+        this.store.dispatch(resetGame());
     }
 }

@@ -2,8 +2,12 @@
     <h1 class="title text-5xl">q:type</h1>
 
     <main class="full-width content-grid" style="height: 100%">
-        <!-- <app-duration></app-duration>    -->
-        <app-game ></app-game>
+        <app-duration></app-duration>  
+        @if(this.showGame) {
+            <app-game #game></app-game>
+        }
+        
+    
     </main>
     <h1 class="title text-5xl">footer</h1>
     <style> 

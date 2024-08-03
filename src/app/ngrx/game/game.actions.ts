@@ -18,3 +18,8 @@ export const durationChange = createAction(
     props<{duration: number}>() // duration = 15 seconds
 )
 
+
+export const triggerRestart = createAction( 
+    '[Game] Restart'
+)
+
