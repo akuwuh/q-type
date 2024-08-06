@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GameComponent } from './game/game.component';
 import { DurationComponent } from './duration/duration.component';
 import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { AppState } from './ngrx/app.state';
-import { selectGame, selectGameStatus, selectRestart } from './ngrx/game/game.selectors';
+import { selectRestart } from './ngrx/game/game.selectors';
 import { CommonModule } from '@angular/common';
 import { generateShuffled } from './utils/wordList';
 

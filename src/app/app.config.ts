@@ -11,5 +11,5 @@ import { CommonModule } from '@angular/common';
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(), provideStore({game: gameReducer}), provideAnimations(), provideEffects()]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore({game: gameReducer}), provideAnimations(), provideEffects()]
 };
