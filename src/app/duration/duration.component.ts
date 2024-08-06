@@ -13,7 +13,7 @@ import { durationChange } from '../ngrx/game/game.actions';
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './duration.component.html',
-  styleUrl: './duration.component.css'
+  styleUrl: './duration.component.scss'
 })
 
 export class DurationComponent implements OnInit {

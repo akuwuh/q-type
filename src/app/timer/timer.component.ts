@@ -9,7 +9,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
       {{timeLeft}}
     </p>
   `,
-  styleUrl: './timer.component.css'
+  styleUrl: './timer.component.scss'
 })
 
 export class TimerComponent {

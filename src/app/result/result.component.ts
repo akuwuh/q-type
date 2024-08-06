@@ -35,7 +35,7 @@ import { Component, Input, OnInit} from '@angular/core';
 	
 
   `,
-  styleUrl: './result.component.css',
+  styleUrl: './result.component.scss',
 //   animations: [
 //     trigger('fadeIn1', [
 // 		transition(':enter', [

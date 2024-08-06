@@ -14,7 +14,7 @@ import { generateShuffled } from './utils/wordList';
   standalone: true,
   imports: [RouterOutlet, GameComponent, DurationComponent, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
 })
 
 export class AppComponent implements OnInit  {

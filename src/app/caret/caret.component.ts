@@ -7,7 +7,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
   template: `
     <div #caret id="caret" class="full-width default" [class.pace]="isActive"></div>
   `,
-  styleUrl: './caret.component.css'
+  styleUrl: './caret.component.scss'
 })
 export class CaretComponent {
 

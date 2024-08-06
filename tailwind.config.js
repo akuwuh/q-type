@@ -5,5 +5,18 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  important: true
+  important: true,
+  mode: 'jit',
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+    ],
+  },
  }

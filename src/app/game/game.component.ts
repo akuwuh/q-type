@@ -20,7 +20,7 @@ import { AppState } from '../ngrx/app.state';
   standalone: true,
   imports: [TimerComponent, ResultComponent, CaretComponent, CommonModule],
   templateUrl: './game.component.html',
-  styleUrl: './game.component.css',
+  styleUrl: './game.component.scss',
   animations: [
     trigger('fadeIn', [
 		transition(':enter', [
