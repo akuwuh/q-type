@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from './ngrx/app.state';
 import { selectGame, selectGameStatus, selectRestart } from './ngrx/game/game.selectors';
 import { CommonModule } from '@angular/common';
+import { generateShuffled } from './utils/wordList';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,9 @@ export class AppComponent implements OnInit  {
 	title = 'q-type';
   showGame = true;
   gameState$ = this.store.select(selectRestart);
+  wordList: string[] = [];
   ngOnInit(): void {
+    this.wordList = generateShuffled();
     this.gameState$.subscribe({
       next: (state) => {
           if (state) {
@@ -37,6 +40,7 @@ export class AppComponent implements OnInit  {
 
   rerender(): void {
     this.showGame = false;
+    this.wordList = generateShuffled(); 
     this.changeDetector.detectChanges();
     this.showGame = true;
   } 

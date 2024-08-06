@@ -76,6 +76,10 @@ body {
     grid-column: full-width-padding;
 }
 
+.hidden {
+    opacity: 0;
+}
+
 /* MEDIA QUERIES */
 
 /* blue */

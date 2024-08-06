@@ -5,7 +5,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <div #caret id="caret" class="text-2xl full-width default" [class.pace]="isActive"></div>
+    <div #caret id="caret" class="full-width default" [class.pace]="isActive"></div>
   `,
   styleUrl: './caret.component.css'
 })

@@ -22,22 +22,18 @@
     -webkit-user-select: none;
     user-select: none;
     padding-bottom: 1em;
+    transition: all 0.25s ease;
 }
 
 #typingTest {
     position: relative;
     width: 100%;
     margin: 0 auto;
+    outline: none;
 }
 
-.pageTest {
-    position: relative;
-    height: 100%;
-    display: grid;
-    grid-template-rows: 1fr auto 1fr;
-}
 
-.pageTest #testModesNotice {
+#testModesNotice {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
@@ -55,14 +51,15 @@
     margin: 1rem auto 0;
     display: flex;
     padding: 1em 2em;
-    opacity: 0.55;
+    opacity: 0.5;
     transition: all 0.125s ease;
+    cursor: pointer;
 }
 #restartTestButton:hover {
     opacity: 1;
 }
 
-.pageTest #wordsWrapper {
+#wordsWrapper {
     position: relative;
 }
 

@@ -1,5 +1,6 @@
 #caret {
-    height: 1.2em;
+    height: 1em;
+    font-size: 1.5em;
     display: block;
     background: var(--caret-color);
     transition: all 0.15s ease;

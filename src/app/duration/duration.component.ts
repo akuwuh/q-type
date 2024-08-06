@@ -20,11 +20,12 @@ export class DurationComponent implements OnInit {
 	constructor (private fb: FormBuilder, private store: Store<AppState>) {
 		
 	}
+
 	duration: number;
 	ngOnInit(): void {
 		this.duration = 15;
 		this.durationForm = this.fb.group({
-			duration: ['15', [Validators.required]]
+			duration: [15, [Validators.required]]
 		})
 
 		this.store.dispatch(durationChange({duration: this.duration}));
@@ -32,19 +33,19 @@ export class DurationComponent implements OnInit {
 	}
     durationOptions = [
 		{
-		  label: '15s',
+		  label: '15',
 		  value: 15,
 		},
 		{
-		  label: '30s',
+		  label: '30',
 		  value: 30,
 		},
 		{
-		  label: '60s',
+		  label: '60',
 		  value: 60,
 		},
 		{
-		  label: '120s',
+		  label: '120',
 		  value: 120,
 		}
 	];
@@ -52,6 +53,7 @@ export class DurationComponent implements OnInit {
 
 	onChange(): void {
 		this.duration = this.durationForm.value.duration;
+		console.log(this.duration);
 		console.log(this.duration);
 		this.store.dispatch(durationChange({duration: this.duration}));
 	}

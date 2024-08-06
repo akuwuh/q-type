@@ -1,18 +1,45 @@
-.test-duration-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+p {
+  font-family: "Outfit", sans-serif;
+  
 }
-
 .duration-text {
-
     margin-right: 1rem;
     color: var(--Gray900);
     font-size: 1.1rem;
 }
 
+
+.active {
+  opacity: 1;
+  font-weight: 600;
+}
+
+.active > label {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.25em;
+}
+
 label {
-  color: var(--Gray800);
-  font-weight: 500;
+  z-index: 1;
+  cursor: pointer;
+}
+
+button:not(.active):hover{
+  opacity: 0.55;
+}
+button {
+  transition: all 0.125s ease;
+  z-index: 3;
+  opacity: 0.3;
+  font-weight: 350;
+  font-family: "Outfit", sans-serif;
+  cursor: pointer;
+  outline:none;
+}
+
+.borderLol {
+  border-left: 1px solid var(--text-color-default);
+  border-right: 1px solid var(--text-color-default);
 }
 

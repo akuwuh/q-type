@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ViewChildren, QueryList, ElementRef, afterRender, afterNextRender} from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ViewChildren, QueryList, ElementRef, afterRender, afterNextRender, Input} from '@angular/core';
 
 import { Word } from '../utils/word';
 import { CharState } from '../utils/char';
@@ -15,7 +15,6 @@ import { startGame, endGame, resetGame, triggerRestart } from '../ngrx/game/game
 import { selectGameEnded, selectGameStarted, selectGameStatus, selectDurationChange} from '../ngrx/game/game.selectors';
 import { AppState } from '../ngrx/app.state';
 
-const WORD_LIST = generateShuffled();
 @Component({
   selector: 'app-game',
   standalone: true,
@@ -26,14 +25,28 @@ const WORD_LIST = generateShuffled();
     trigger('fadeIn', [
 		transition(':enter', [
 			style({ opacity: 0 }),
-			animate(500, style({ opacity: 1 }))
+			animate('500ms 100ms ease-in', style({ opacity: 1 }))
 		]),
-	])
+	]),
+
+    trigger('fadeOut', [
+		transition(':leave', [
+			style({ opacity: 1 }),
+			animate('500ms 100ms ease-out', style({ opacity: 0 }))
+		]),
+	]),
+
+    trigger('fadeIn2', [
+		transition(':enter', [
+			style({ opacity: 0 }),
+			animate('500ms 250ms ease-in', style({ opacity: 1 }))
+		]),
+	]),
   ]
 })
 
 export class GameComponent implements OnInit {
-
+    @Input() wordList: string[] = []; 
     duration: number = 15;
     words: Word[] = [];
     currentWord: number = 0;
@@ -43,6 +56,8 @@ export class GameComponent implements OnInit {
     started: boolean = false;
     gameEnded: boolean =  false;
     allowBackspace: boolean = true;
+    showCaret: boolean = false;
+    
 
     charInputted: number = 0;
     charCorrect: number = 0;
@@ -59,6 +74,7 @@ export class GameComponent implements OnInit {
     charLeft: number = 0;
 
     wordDivHeight: number = 0;
+    wordDivMargin: number = 0;
 
     line1Offset: number = 0; 
     line2Offset: number = 0;
@@ -105,6 +121,7 @@ export class GameComponent implements OnInit {
                 this.duration = status;
             }
         });
+
         this.generateWords();
         this.viewUpdate();
     }
@@ -112,13 +129,17 @@ export class GameComponent implements OnInit {
 
     constructor (private store: Store<AppState>) {
         afterNextRender(() => {
+            this.viewUpdate();
             this.updateValues();
+            this.updateCaret();
+            this.showCaret = true;
         });
 
         afterRender(() => {
             if (!this.gameEnded) {
                 this.viewUpdate();
                 this.updateCaret();
+                console.log(this.line1Offset, this.line2Offset, this.line3Offset);
                 if (this.currentLine === 3) {
                     this.onLineChange();
                 }
@@ -130,21 +151,21 @@ export class GameComponent implements OnInit {
     
 
     generateWords(): void {
-        for (let i = 0; i < WORD_LIST.length; i++) {
-            this.words.push(new Word(WORD_LIST[i], 0, 0, i));
+        for (let i = 0; i < this.wordList.length; i++) {
+            this.words.push(new Word(this.wordList[i], 0, 0, i));
         }
         this.words[this.currentWord].isActive = true;
     }
 
     @HostListener('document:keypress', ['$event']) keyEvent(e: any): void {
-        if (!this.gameEnded) {
+        if (!this.gameEnded && e.key != "Tab" && e.key != "Enter") {
             // start timer on first key press
             if (!this.started && this.timer) {
                 this.timer.startTimer();
                 this.store.dispatch(startGame());
             }
             // alpha chars only
-            if (e.key != " " && e.key != "Enter")
+            if (e.key != " ")
 
             {
                 if (this.EOL) return;
@@ -205,21 +226,21 @@ export class GameComponent implements OnInit {
 
     updateValues(): void {
         this.wordDivHeight = this.wordsRef?.nativeElement.children[this.nextRemoveIndex].offsetHeight!;
-
-        // line offsets are usually + 40px then + 41px, etc. idk why
+        let tempMarginTop = getComputedStyle(this.wordsRef?.nativeElement.children[this.nextRemoveIndex]).marginTop.slice(0, -2); 
+        this.wordDivMargin = parseInt(tempMarginTop);
+        
+        // line offsets are usually + 36px then + 35px, etc. idk why
         this.line1Offset = this.wordsRef?.nativeElement.children[this.nextRemoveIndex].offsetTop!;
-        this.line2Offset = this.line1Offset*3 + this.wordDivHeight; 
-        this.line3Offset = this.line2Offset + this.wordDivHeight + this.line1Offset * 2 - 1;
+
+        this.line2Offset = this.line1Offset + this.wordDivHeight + this.wordDivMargin *2; 
+        this.line3Offset = this.line2Offset + this.wordDivHeight + this.wordDivMargin *2 - 1; 
 
         this.wordsWrapperOutterHeight = this.line3Offset + this.line1Offset + this.wordDivHeight;
 
-        if (this.wordsWrapperOutterHeight != 122 && this.wordsWrapper) {
-            let temp = this.wordsWrapper?.nativeElement as HTMLElement;
-            temp.style.height = `${this.wordsWrapperOutterHeight}px`;
-        }
-
-        console.log(this.line1Offset, this.line2Offset, this.line3Offset);
-
+        // if (this.wordsWrapperOutterHeight > 117 && this.wordsWrapper) {
+        //     let temp = this.wordsWrapper?.nativeElement as HTMLElement;
+        //     temp.style.height = `${this.wordsWrapperOutterHeight}px`;
+        // }
     }
 
 
