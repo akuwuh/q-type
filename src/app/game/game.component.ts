@@ -4,15 +4,14 @@ import { Word } from '../utils/word';
 import { CharState } from '../utils/char';
 import { TimerComponent } from '../timer/timer.component';
 import { ResultComponent } from '../result/result.component';
-import { generateShuffled } from '../utils/wordList';
 import { CaretComponent } from '../caret/caret.component';
-import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
+import { trigger, style, animate, transition, } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 
 // NGRX stuff
 import { Store } from '@ngrx/store';
 import { startGame, endGame, resetGame, triggerRestart } from '../ngrx/game/game.actions';
-import { selectGameEnded, selectGameStarted, selectGameStatus, selectDurationChange} from '../ngrx/game/game.selectors';
+import { selectGameStatus, selectDurationChange} from '../ngrx/game/game.selectors';
 import { AppState } from '../ngrx/app.state';
 
 @Component({
@@ -70,7 +69,7 @@ export class GameComponent implements OnInit {
 
     currentCharDOM: Element | null | undefined = null;
 
-    charTop: number = 0;
+    charTop: number = 6;
     charLeft: number = 0;
 
     wordDivHeight: number = 0;
@@ -84,7 +83,7 @@ export class GameComponent implements OnInit {
     nextRemoveIndex: number = 0;
 
     wordsWrapperWidth: number = 0; 
-    wordsWrapperOutterHeight: number = 0;
+    wordsWrapperOuterHeight: number = 0;
 
     charSpanWidth: number = 0;
     
@@ -95,10 +94,9 @@ export class GameComponent implements OnInit {
     
     gameStateDuration$ = this.store.select(selectDurationChange);
     gameState$ = this.store.select(selectGameStatus);
-    gameStartedObs$ = this.store.select(selectGameStarted);
-    gameEndedObs$ = this.store.select(selectGameEnded);
 
     ngOnInit(): void {
+        this.generateWords();  
         this.store.dispatch(resetGame()); // we'll see
         this.gameState$.subscribe({
             next: (status) => {
@@ -121,12 +119,13 @@ export class GameComponent implements OnInit {
                 this.duration = status;
             }
         });
+    }
 
-        this.generateWords();
+    ngAfterViewInit(): void {
+        this.updateValues();
         this.viewUpdate();
         this.updateCaret();
     }
-    
 
     constructor (private store: Store<AppState>) {
         afterNextRender(() => {
@@ -145,14 +144,12 @@ export class GameComponent implements OnInit {
                 }
             }
         });
- 
-
     }
     
 
     generateWords(): void {
         for (let i = 0; i < this.wordList.length; i++) {
-            this.words.push(new Word(this.wordList[i], 0, 0, i));
+            this.words.push(new Word(this.wordList[i], i));
         }
         this.words[this.currentWord].isActive = true;
     }
@@ -235,7 +232,7 @@ export class GameComponent implements OnInit {
         this.line2Offset = this.line1Offset + this.wordDivHeight + this.wordDivMargin *2; 
         this.line3Offset = this.line2Offset + this.wordDivHeight + this.wordDivMargin *2 - 1; 
 
-        this.wordsWrapperOutterHeight = this.line3Offset + this.line1Offset + this.wordDivHeight;
+        this.wordsWrapperOuterHeight = this.line3Offset + this.line1Offset + this.wordDivHeight;
 
         // if (this.wordsWrapperOutterHeight > 117 && this.wordsWrapper) {
         //     let temp = this.wordsWrapper?.nativeElement as HTMLElement;
@@ -277,6 +274,7 @@ export class GameComponent implements OnInit {
         if (this.currentWord === this.nextRemoveIndex && this.words[this.currentWord].lastChar === -1) {
             this.allowBackspace = false;
         }
+
     }
 
     checkNewline(): boolean {

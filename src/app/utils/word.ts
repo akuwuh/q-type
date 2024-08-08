@@ -9,17 +9,11 @@ export class Word {
     lastChar: number = -1; // empty string
     isActive: boolean = false; 
     equalToLength: boolean = false; // lastChar === len - 1
-
-    globalIdx: number; // index of word in the whole text
-    lineIdx: number; // index of line it belongs to
-    localIdx: number; // index of word in the line  
-
-    constructor(value: string, lineIdx: number, localIdx: number, globalIdx: number,) {
+    globalIdx: number = 0;
+    constructor(value: string, globalIdx: number) {
         this.value = value;
-        this.globalIdx = globalIdx;
-        this.lineIdx = lineIdx;
-        this.localIdx = localIdx;
         this.len = value.length;
+        this.globalIdx = globalIdx; 
 
         for (let i = 0; i < this.len; i++) {
             this.render.push(new Char(this.value[i], CharState.DEFAULT)); 

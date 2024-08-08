@@ -1,17 +1,3 @@
-#app {
-    min-height: 100vh;
-    grid-template-rows: [top-start] auto [content-start] 1fr [content-end] auto [top-end];
-    overflow: hidden;
-    row-gap: 2rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    width: 100%;
-  }
-
-main {
-    display: grid;
-}
-
 .pageTest {
   position: relative;
   height: 100%;

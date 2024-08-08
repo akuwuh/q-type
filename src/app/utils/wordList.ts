@@ -1,4 +1,4 @@
-const wordList = [
+export const wordListGlobal = [
     'in', 'one', 'good', 'real', 'one', 'not', 'school', 'set', 'they', 'state', 'high', 'life', 'consider', 'on', 'and', 'not',
     'come', 'what', 'also', 'for', 'set', 'point', 'can', 'want', 'as', 'while', 'with', 'of', 'order', 'child', 'about', 'school',
     'thing', 'never', 'hold', 'find', 'order', 'each', 'too', 'between', 'program', 'work', 'end', 'you', 'home', 'place', 'around',
@@ -61,12 +61,3 @@ const wordList = [
     'after', 'much', 'need', 'open', 'change', 'also'
 ];
 
-
-export function generateShuffled(): string[] {
-    const shuffled = wordList
-    .map(value => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
-
-    return shuffled;
-}

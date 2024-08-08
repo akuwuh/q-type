@@ -1,6 +1,6 @@
 
     
-        <div id="typingTest" class="content-grid content full-width-padding" autofocus>
+        <div id="typingTest" class="content-grid content full-width-padding">
             @if (gameEnded) {
                 <div id="testModesNotice">
                     <div id="results" class="text-2xl p-2 my-2 mb-5 font-thin">
@@ -18,15 +18,29 @@
                 </div>
             } @else {
 
-                <div id="testModesNotice">
+                <div id="duration">
                     <div class="text-xl p-2 my-2 font-semibold">
                         <app-timer #timer [timeLeft]="duration" (timerFinished)="onTimerFinished()"/>
                     </div>
                 </div>
-                <div #wordsWrapper id="wordsWrapper" class="content-grid full-width" style="height: 6.725em; overflow: hidden;" @fadeIn>
-
+                <div #wordsWrapper id="wordsWrapper" class="full-width relative" style="height: 6.725em; overflow: hidden;" @fadeIn>
+                    <input
+                        id="wordsInput"
+                        class="full-width"
+                        type="text"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        autocapitalize="none"
+                        autocorrect="off"
+                        data-gramm="false"
+                        data-gramm_editor="false"
+                        data-enable-grammarly="false"
+                        list="autocompleteOff"
+                        spellcheck="false"
+                        autofocus
+                    />
                     <app-caret #caret [isActive]="!started" @fadeIn2 ></app-caret>
-                    <div #wordsRef id="words" class="mx-auto flex flex-wrap h-fit content-start" >
+                    <div #wordsRef id="words" class="mx-auto flex flex-wrap h-fit content-start" tabindex="-1">
                         @for (word of this.words; track $index) {
                             <div class="word relative my-1.5 mx-1.5" style="font-size: 1.25em" [class.active]="currentWord === word.globalIdx" >
                                 @for (char of word.render; track $index) {

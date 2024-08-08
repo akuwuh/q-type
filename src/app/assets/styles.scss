@@ -35,15 +35,7 @@ body {
     src: url('./app/assets/PrimaSansMonoBT-Roman.otf'); /*URL to font*/
 }
 
-#app {
-    min-height: 100vh;
-    grid-template-rows: [top-start] auto [content-start] 1fr [content-end] auto [top-end];
-    overflow: hidden;
-    row-gap: 2rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    width: 100%;
-}
+
 
 .content-grid {
     --padding-inline: 2rem;
@@ -69,10 +61,6 @@ body {
       /* minmax(0, var(--breakout-size)) [breakout-end] */
       minmax(0, 1fr) [full-width-padding-end]
       minmax(0, var(--padding-inline)) [full-width-end];
-}
-
-.title {
-    font-family: 'Literata', serif;
 }
 
 .content-grid > :not( .full-width, .full-width-padding) {
