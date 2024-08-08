@@ -56,7 +56,7 @@ export class GameComponent implements OnInit {
     started: boolean = false;
     gameEnded: boolean =  false;
     allowBackspace: boolean = true;
-    showCaret: boolean = false;
+
     
 
     charInputted: number = 0;
@@ -124,6 +124,7 @@ export class GameComponent implements OnInit {
 
         this.generateWords();
         this.viewUpdate();
+        this.updateCaret();
     }
     
 
@@ -132,7 +133,6 @@ export class GameComponent implements OnInit {
             this.viewUpdate();
             this.updateValues();
             this.updateCaret();
-            this.showCaret = true;
         });
 
         afterRender(() => {

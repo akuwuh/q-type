@@ -25,7 +25,7 @@
                 </div>
                 <div #wordsWrapper id="wordsWrapper" class="content-grid full-width" style="height: 6.725em; overflow: hidden;" @fadeIn>
 
-                    <app-caret #caret [isActive]="!started" @fadeIn2 [class.hidden]="!showCaret"></app-caret>
+                    <app-caret #caret [isActive]="!started" @fadeIn2 ></app-caret>
                     <div #wordsRef id="words" class="mx-auto flex flex-wrap h-fit content-start" >
                         @for (word of this.words; track $index) {
                             <div class="word relative my-1.5 mx-1.5" style="font-size: 1.25em" [class.active]="currentWord === word.globalIdx" >
