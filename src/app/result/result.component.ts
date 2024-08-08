@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 // import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
 
 
@@ -7,7 +7,7 @@ import { Component, Input, OnInit} from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-	<div id="results" class="container grid sm:grid-cols-3 m-0 p-0 min-w-min grid-cols-1 auto-rows-min gap-y-5 sm:gap-0">
+	<div  #resultDiv id="results" class="container grid sm:grid-cols-3 m-0 p-0 min-w-min grid-cols-1 auto-rows-min gap-y-5 sm:gap-0">
 		@for (result of results; track $index) {
 			<div class="inline-block" >
 				<span class="flex m-0 p-0 justify-center border-hidden sm:border-solid" [class.borderLol]="result.name === 'acc'">
@@ -42,6 +42,8 @@ export class ResultComponent implements OnInit {
 	@Input() correctChars: number;
 	@Input() totalChars: number;
 
+	@ViewChild('resultDiv') resultDiv!: ElementRef;
+
 	results: any[] = [];
 
 	wpm: number = 0;
@@ -69,6 +71,7 @@ export class ResultComponent implements OnInit {
 				value: this.time
 			}
 		]
+		this.resultDiv.nativeElement.focus();
 	}
 
 	calculateWPM(): number {

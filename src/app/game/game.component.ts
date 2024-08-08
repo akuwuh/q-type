@@ -91,7 +91,9 @@ export class GameComponent implements OnInit {
     @ViewChild('wordsRef', {static: false}) wordsRef!: ElementRef;
     @ViewChild('caret') caret!: CaretComponent; 
     @ViewChild('wordsWrapper') wordsWrapper!: ElementRef; 
-    
+    @ViewChild('wordsInput') input!: ElementRef;
+
+
     gameStateDuration$ = this.store.select(selectDurationChange);
     gameState$ = this.store.select(selectGameStatus);
 
@@ -125,6 +127,7 @@ export class GameComponent implements OnInit {
         this.updateValues();
         this.viewUpdate();
         this.updateCaret();
+        this.input.nativeElement.focus();
     }
 
     constructor (private store: Store<AppState>) {

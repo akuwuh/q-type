@@ -2,7 +2,7 @@
     
         <div id="typingTest" class="content-grid content full-width-padding">
             @if (gameEnded) {
-                <div id="testModesNotice">
+                <div id="duration">
                     <div id="results" class="text-2xl p-2 my-2 mb-5 font-thin">
                         results
                     </div>
@@ -25,6 +25,7 @@
                 </div>
                 <div #wordsWrapper id="wordsWrapper" class="full-width relative" style="height: 6.725em; overflow: hidden;" @fadeIn>
                     <input
+                        #wordsInput
                         id="wordsInput"
                         class="full-width"
                         type="text"
