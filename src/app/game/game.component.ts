@@ -127,7 +127,6 @@ export class GameComponent implements OnInit {
         this.updateValues();
         this.viewUpdate();
         this.updateCaret();
-        this.input.nativeElement.focus();
     }
 
     constructor (private store: Store<AppState>) {
@@ -135,6 +134,7 @@ export class GameComponent implements OnInit {
             this.viewUpdate();
             this.updateValues();
             this.updateCaret();
+            this.input.nativeElement.focus();
         });
 
         afterRender(() => {
