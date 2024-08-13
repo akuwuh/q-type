@@ -222,9 +222,18 @@ export class GameComponent implements OnInit {
    
 
     updateCaret(): void {
-        const caretTop = this.charTop != undefined ? this.charTop: 6;
-        const caretLeft = this.charLeft != undefined ? this.charTop: 6;
-        this.caret?.updatePosition(caretTop, caretLeft);
+        let caretTop = 6;
+        let caretLeft = 6;
+
+        if (this.charTop >= 6) {
+            caretTop = this.charTop;
+        }
+
+        if (this.charLeft >= 6) {
+            caretLeft = this.charLeft;
+        }   
+
+        this.caret?.updatePosition(caretLeft, caretTop);
     }
 
     updateValues(): void {

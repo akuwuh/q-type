@@ -10,7 +10,7 @@ import { Component, Input, OnInit} from '@angular/core';
 	<div id="results" class="container grid sm:grid-cols-3 m-0 p-0 min-w-min grid-cols-1 auto-rows-min gap-y-5 sm:gap-0">
 		@for (result of results; track $index) {
 			<div class="inline-block" >
-				<span class="flex m-0 p-0 justify-center border-hidden sm:border-solid" [class.borderLol]="result.name === 'acc'">
+				<span class="flex m-0 p-0 justify-center border-hidden md:border-solid" [class.borderLol]="result.name === 'acc'">
 					<h1 class="relative m-0 p-0 text-8xl font-medium">
 						{{result.value}}
 					</h1>
