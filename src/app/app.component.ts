@@ -35,7 +35,6 @@ export class AppComponent implements OnInit  {
   }
 
   constructor(private store: Store<AppState>, private changeDetector: ChangeDetectorRef) {
-  
   }
 
 

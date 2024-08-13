@@ -56,13 +56,12 @@
               },
               "development": {
                 "optimization": {
-                  "scripts": true, 
-                  "styles": {
-                    "minify": true,
-                    "inlineCritical": true
+                  "scripts": true,
+                  "fonts": {
+                    "inline": true
                   },
-                  "fonts": true
-                },
+                  "styles": true
+                },                
                 "extractLicenses": false,
                 "sourceMap": true
               }
