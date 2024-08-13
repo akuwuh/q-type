@@ -70,8 +70,8 @@ export class GameComponent implements OnInit {
 
     currentCharDOM: Element | null | undefined = null;
 
-    charTop: number = 0;
-    charLeft: number = 0;
+    charTop: number = 6;
+    charLeft: number = 6;
 
     wordDivHeight: number = 0;
     wordDivMargin: number = 0;
