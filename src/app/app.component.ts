@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GameComponent } from './game/game.component';
 import { DurationComponent } from './duration/duration.component';
@@ -33,10 +33,12 @@ export class AppComponent implements OnInit  {
       }
     });
   }
-
+  @ViewChild('app') app!: ElementRef;
   constructor(private store: Store<AppState>, private changeDetector: ChangeDetectorRef) {
   }
-
+  ngAfterViewInit(): void { 
+    this.app.nativeElement.style.visibility = 'visible';
+  }
 
   rerender(): void {
     this.showGame = false;
