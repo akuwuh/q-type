@@ -33,7 +33,7 @@
 }
 
 
-#duration {
+#testModesNotice {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
@@ -55,28 +55,14 @@
     transition: all 0.125s ease;
     cursor: pointer;
 }
-
 #restartTestButton:hover {
     opacity: 1;
 }
 
-#results{
-    font-family: "Outfit", sans-serif;
+#wordsWrapper {
+    position: relative;
 }
 
-
-#wordsInput {
-    font-size: 1rem;
-    opacity: 0;
-    padding: 0;
-    margin: 0 auto;
-    border: none;
-    outline: none;
-    display: block;
-    resize: none;
-    position: absolute;
-    z-index: -1;
-    cursor: default;
-    pointer-events: none;
-    border-radius: 0;
+#results{
+    font-family: "Outfit", sans-serif;
 }

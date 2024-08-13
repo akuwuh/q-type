@@ -32,8 +32,33 @@ import { Component, Input, OnInit} from '@angular/core';
 		}
 
 	</div>
+	
+
   `,
   styleUrl: './result.component.scss',
+//   animations: [
+//     trigger('fadeIn1', [
+// 		transition(':enter', [
+// 			style({ opacity: 0 }),
+// 			animate('500 150', style({ opacity: 1 }))
+// 		]),
+
+// 	]),
+// 	trigger('fadeIn2', [
+// 		transition(':enter', [
+// 			style({ opacity: 0 }),
+// 			animate('500 250', style({ opacity: 1 }))
+// 		]),
+		
+// 	]),
+// 	trigger('fadeIn3', [
+// 		transition(':enter', [
+// 			style({ opacity: 0 }),
+// 			animate('500 350', style({ opacity: 1 }))
+// 		]),
+		
+// 	])
+//   ]
 })
 export class ResultComponent implements OnInit {
 	@Input() correctWords: number;
