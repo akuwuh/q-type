@@ -35,7 +35,7 @@
               ],
               "scripts": [],
   
-              "prerender": true,
+              "prerender": false,
               "ssr": false
             },
             "configurations": {
