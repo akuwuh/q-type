@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from './ngrx/app.state';
 import { selectRestart } from './ngrx/game/game.selectors';
 import { CommonModule } from '@angular/common';
-import { generateShuffled } from './utils/wordList';
+import { wordList } from './utils/wordList';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +21,10 @@ export class AppComponent implements OnInit  {
 	title = 'q-type';
   showGame = true;
   gameState$ = this.store.select(selectRestart);
-  wordList: string[] = [];
+  wordListGame: string[] = [];
   ngOnInit(): void {
-    this.wordList = generateShuffled();
+    this.wordListGame = wordList;
+    this.shuffle();
     this.gameState$.subscribe({
       next: (state) => {
           if (state) {
@@ -40,8 +41,16 @@ export class AppComponent implements OnInit  {
 
   rerender(): void {
     this.showGame = false;
-    this.wordList = generateShuffled(); 
+    this.shuffle();
     this.changeDetector.detectChanges();
     this.showGame = true;
   } 
+  
+  shuffle(): void {
+    this.wordListGame = wordList
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
+  }
 }
+

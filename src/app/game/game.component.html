@@ -23,7 +23,7 @@
                         <app-timer #timer [timeLeft]="duration" (timerFinished)="onTimerFinished()"/>
                     </div>
                 </div>
-                <div #wordsWrapper id="wordsWrapper" class="content-grid full-width" style="height: 6.725em; overflow: hidden;" @fadeIn>
+                <div #wordsWrapper id="wordsWrapper" class="full-width" style="height: 6.725em; overflow: hidden;" @fadeIn>
 
                     <app-caret #caret [isActive]="!started" @fadeIn2 ></app-caret>
                     <div #wordsRef id="words" class="mx-auto flex flex-wrap h-fit content-start" >

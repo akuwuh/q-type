@@ -4,7 +4,6 @@ import { Word } from '../utils/word';
 import { CharState } from '../utils/char';
 import { TimerComponent } from '../timer/timer.component';
 import { ResultComponent } from '../result/result.component';
-import { generateShuffled } from '../utils/wordList';
 import { CaretComponent } from '../caret/caret.component';
 import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
 import { CommonModule } from '@angular/common';
@@ -124,6 +123,8 @@ export class GameComponent implements OnInit {
 
         this.generateWords();
         this.viewUpdate();
+        this.charTop = 6;
+        this.charLeft = 6;
         this.updateCaret();
     }
     
@@ -221,7 +222,9 @@ export class GameComponent implements OnInit {
    
 
     updateCaret(): void {
-        this.caret.updatePosition(this.charLeft, this.charTop);
+        const caretTop = this.charTop != undefined ? this.charTop: 6;
+        const caretLeft = this.charLeft != undefined ? this.charTop: 6;
+        this.caret?.updatePosition(caretTop, caretLeft);
     }
 
     updateValues(): void {
