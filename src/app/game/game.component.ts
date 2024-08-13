@@ -211,8 +211,10 @@ export class GameComponent implements OnInit {
 
     @HostListener('window:resize', ['$event'])
         onResize(e: any): void{
-            this.updateValues();
-            this.viewUpdate();
+            if (!this.gameEnded) {
+                this.updateValues();
+                this.viewUpdate();
+            }
         }
 
     onTimerFinished() {
