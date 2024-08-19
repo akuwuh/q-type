@@ -38,13 +38,12 @@ export class AppComponent implements OnInit  {
   appref = inject(ApplicationRef)
   
   constructor(private store: Store<AppState>, private changeDetector: ChangeDetectorRef) {
-    // this.appref.isStable.pipe(
-    //   debounceTime(300),
-    //   distinctUntilChanged()
-    // ).subscribe(v => console.log('is stable', v))
 
     afterNextRender(() => {
-      this.app.nativeElement.style.visibility = 'visible';
+      setTimeout(() => {
+        this.app.nativeElement.style.visibility = 'visible';
+      }, 50);
+  
     })
   }
 

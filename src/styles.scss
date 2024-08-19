@@ -2,6 +2,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@font-face {
+    font-family: 'Prima-Sans-Roman'; 
+    src: url('./app/assets/PrimaSansMonoBT-Roman.otf'); /*URL to font*/
+}
+
 
 :root { 
     --text-color-default: #a3a3a3;
@@ -11,12 +16,31 @@
     --caret-roundness: 1rem;
 }
 
-@font-face {
-    font-family: 'Prima-Sans-Roman'; 
-    src: url('./app/assets/PrimaSansMonoBT-Roman.otf'); /*URL to font*/
+html {
+
+    -webkit-text-size-adjust: 100%;
+    visibility: hidden;
+}
+
+body, html { 
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    margin: 0;
+    line-height: 1.15;
 }
 
 
+.app {
+    min-height: 100vh;
+    grid-template-rows: [top-start] auto [content-start] 1fr [content-end] auto [top-end];
+    overflow: hidden;
+    row-gap: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 100%;
+}
 
 .content-grid {
     --padding-inline: 2rem;
@@ -101,20 +125,3 @@
       }
 }
 
-body, html { 
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    overflow: hidden;
-    margin: 0;
-}
-
-html {
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-    visibility: visible;
-}
-
-body {
-    margin: 0
-}
