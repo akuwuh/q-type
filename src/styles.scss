@@ -11,23 +11,6 @@
     --caret-roundness: 1rem;
 }
 
-body, html { 
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    overflow: hidden;
-    margin: 0;
-}
-
-html {
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%
-}
-
-body {
-    margin: 0
-}
-
 @font-face {
     font-family: 'Prima-Sans-Roman'; 
     src: url('./app/assets/PrimaSansMonoBT-Roman.otf'); /*URL to font*/
@@ -78,6 +61,7 @@ body {
     opacity: 0;
 }
 
+
 /* MEDIA QUERIES */
 
 /* blue */
@@ -115,4 +99,22 @@ body {
     .content-grid, .container-div  {
         --content-max-width: 1024px;
       }
+}
+
+body, html { 
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    visibility: visible;
+}
+
+body {
+    margin: 0
 }
