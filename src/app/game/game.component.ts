@@ -140,7 +140,6 @@ export class GameComponent implements OnInit {
             if (!this.gameEnded) {
                 this.viewUpdate();
                 this.updateCaret();
-                console.log(this.line1Offset, this.line2Offset, this.line3Offset);
                 if (this.currentLine === 3) {
                     this.onLineChange();
                 }

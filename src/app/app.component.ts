@@ -1,13 +1,13 @@
-import { ApplicationRef, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, inject} from '@angular/core';
+import { ApplicationRef, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, afterNextRender, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GameComponent } from './game/game.component';
 import { DurationComponent } from './duration/duration.component';
-import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { AppState } from './ngrx/app.state';
 import { selectRestart } from './ngrx/game/game.selectors';
 import { CommonModule } from '@angular/common';
 import { wordList } from './utils/wordList';
+// import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -16,11 +16,6 @@ import { wordList } from './utils/wordList';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-
-
-
-
-
 
 export class AppComponent implements OnInit  {
 	title = 'q-type';
@@ -43,11 +38,17 @@ export class AppComponent implements OnInit  {
   appref = inject(ApplicationRef)
   
   constructor(private store: Store<AppState>, private changeDetector: ChangeDetectorRef) {
-    this.appref.isStable.subscribe(v => console.log('is stable', v))
+    // this.appref.isStable.pipe(
+    //   debounceTime(300),
+    //   distinctUntilChanged()
+    // ).subscribe(v => console.log('is stable', v))
+
+    afterNextRender(() => {
+      this.app.nativeElement.style.visibility = 'visible';
+    })
   }
-  ngAfterViewInit(): void { 
-    this.app.nativeElement.style.visibility = 'visible';
-  }
+
+  
 
   rerender(): void {
     this.showGame = false;
