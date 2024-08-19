@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { ApplicationRef, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GameComponent } from './game/game.component';
 import { DurationComponent } from './duration/duration.component';
@@ -17,6 +17,11 @@ import { wordList } from './utils/wordList';
   styleUrl: './app.component.scss',
 })
 
+
+
+
+
+
 export class AppComponent implements OnInit  {
 	title = 'q-type';
   showGame = true;
@@ -34,7 +39,11 @@ export class AppComponent implements OnInit  {
     });
   }
   @ViewChild('app') app!: ElementRef;
+
+  appref = inject(ApplicationRef)
+  
   constructor(private store: Store<AppState>, private changeDetector: ChangeDetectorRef) {
+    this.appref.isStable.subscribe(v => console.log('is stable', v))
   }
   ngAfterViewInit(): void { 
     this.app.nativeElement.style.visibility = 'visible';
