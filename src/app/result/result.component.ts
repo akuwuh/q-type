@@ -7,7 +7,7 @@ import { Component, Input, OnInit} from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-	<div id="results" class="container grid sm:grid-cols-3 m-0 p-0 min-w-min grid-cols-1 auto-rows-min gap-y-5 sm:gap-0">
+	<div id="results" class="container grid sm:grid-cols-3 m-0 p-0 min-w-min grid-cols-1 auto-rows-min gap-y-5 sm:gap-0" tabindex="-1">
 		@for (result of results; track $index) {
 			<div class="inline-block" >
 				<span class="flex m-0 p-0 justify-center border-hidden md:border-solid" [class.borderLol]="result.name === 'acc'">

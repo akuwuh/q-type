@@ -127,7 +127,7 @@ export class GameComponent implements OnInit {
         this.charLeft = 6;
         this.updateCaret();
     }
-    
+
 
     constructor (private store: Store<AppState>) {
         afterNextRender(() => {

@@ -17,14 +17,28 @@
                         @fadeIn></app-result>
                 </div>
             } @else {
-
                 <div id="testModesNotice">
                     <div class="text-xl p-2 my-2 font-semibold">
                         <app-timer #timer [timeLeft]="duration" (timerFinished)="onTimerFinished()" @fadeIn2/>
                     </div>
                 </div>
                 <div #wordsWrapper id="wordsWrapper" class="full-width" style="height: 6.725em; overflow: hidden;" @fadeIn>
-                    
+                    <input
+                        #wordsInput
+                        id="wordsInput"
+                        class="full-width"
+                        type="text"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        autocapitalize="none"
+                        autocorrect="off"
+                        data-gramm="false"
+                        data-gramm_editor="false"
+                        data-enable-grammarly="false"
+                        list="autocompleteOff"
+                        spellcheck="false"
+                        tabindex="-1"
+                    />
                     <app-caret #caret [isActive]="!started" @fadeIn2 ></app-caret>
                     <div #wordsRef id="words" class="mx-auto flex flex-wrap h-fit content-start" >
                         @for (word of this.words; track $index) {
