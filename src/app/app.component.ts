@@ -7,6 +7,7 @@ import { AppState } from './ngrx/app.state';
 import { selectRestart } from './ngrx/game/game.selectors';
 import { CommonModule } from '@angular/common';
 import { wordList } from './utils/wordList';
+import { trigger, style, animate, transition } from '@angular/animations';
 // import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
@@ -15,6 +16,14 @@ import { wordList } from './utils/wordList';
   imports: [RouterOutlet, GameComponent, DurationComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  animations: [
+    trigger('fadeIn', [
+		transition(':enter', [
+			style({ opacity: 0 }),
+			animate('500ms 100ms ease-in', style({ opacity: 1 }))
+		]),
+	])
+  ]
 })
 
 export class AppComponent implements OnInit  {
@@ -42,8 +51,8 @@ export class AppComponent implements OnInit  {
     afterNextRender(() => {
       setTimeout(() => {
         this.app.nativeElement.style.visibility = 'visible';
-      }, 50);
-  
+      }, 60);
+      
     })
   }
 

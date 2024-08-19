@@ -5,7 +5,7 @@ import { CharState } from '../utils/char';
 import { TimerComponent } from '../timer/timer.component';
 import { ResultComponent } from '../result/result.component';
 import { CaretComponent } from '../caret/caret.component';
-import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 
 // NGRX stuff

@@ -1,14 +1,14 @@
 <div #app class="app content-grid" style="padding-top: 32px;" >
     <header>
         <a href="/">
-            <h1 class="title text-4xl">q:type</h1>
+            <h1 class="title text-4xl" @fadeIn>q:type</h1>
         </a>
         
     </header>
     <main class="full-width content-grid" style="height: 100%">
           
         <div class="page pageTest full-width content-grid">
-            <app-duration ></app-duration>
+            <app-duration @fadeIn></app-duration>
             @if(this.showGame) {
                 <app-game #game [wordList]="wordListGame"></app-game>
             }
